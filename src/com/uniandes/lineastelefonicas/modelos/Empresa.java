@@ -6,7 +6,7 @@ public class Empresa {
     private LineaTelefonica linea2 = new LineaTelefonica();
     private LineaTelefonica linea3 = new LineaTelefonica();
     private LineaCelular celular = new LineaCelular();
-
+    private LIneaVozIP voz = new LIneaVozIP();
     
     // Constructor vacio
     public Empresa() {
@@ -41,6 +41,11 @@ public class Empresa {
         return this.celular;
     }
 
+    public LIneaVozIP getVoz() {
+        return this.voz;
+    }
+
+
     // metodos
     public void agregarLlamadaLocalLinea1(int minutos){
        getLinea1().agregarLlamadaLocal(minutos);
@@ -58,6 +63,10 @@ public class Empresa {
         getCelular().agregarLlamadaLocal(minutos);
     }
 
+    public void agregarLlamadaLocalLineaVozIP(int minutos){
+        getVoz().agregarLlamadaLocal(minutos);
+    }
+
     public void agregarLlamadaLargaDistanciaLinea1(int minutos ){
         getLinea1().agregarLlamadaLargaDistancia(minutos);
     }
@@ -68,6 +77,10 @@ public class Empresa {
 
     public void agregarLlamadaLargaDistanciaLinea3(int minutos ){
         getLinea3().agregarLlamadaLargaDistancia(minutos);
+    }
+
+    public void agregarLlamadaLargaDistanciaLineaVozIP(int minutos){
+        getVoz().agregarLlamadaLargaDistancia(minutos);
     }
 
     public void agregarLlamadaCelularLinea1(int minutos){
@@ -86,13 +99,17 @@ public class Empresa {
         getCelular().agregarLlamadaCelular(minutos);
     }
 
+    public void agregarLlamadaCelularLineaIP(int minutos){
+        getVoz().agregarLlamadaCelular(minutos);
+    }
+
     public int darTotalNumeroLlamadasDesdeLineasNoAlternativas(){
         int total = getLinea1().getNumeroLlamadas() + getLinea2().getNumeroLlamadas() + getLinea3().getNumeroLlamadas();
         return total;
     }
 
     public int darTotalNumeroLlamadasDesdeLineasAlternativas(){
-        return getCelular().getNumeroLlamadas();
+        return getCelular().getNumeroLlamadas() + getVoz().getNumeroLlamadas();
     }
 
     public int darTotalNumeroMinutosDesdeLineasNoAlternativas(){
@@ -101,7 +118,8 @@ public class Empresa {
     }
 
     public int darTotalNumeroMinutosDesdeLineasAlternativas(){
-        return getCelular().getNumeroMinutos();
+        return getCelular().getNumeroMinutosCelular() + getCelular().getNumeroMinutosLocal() + 
+        getVoz().getNumeroMinutosCelular() + getVoz().getNumeroMinutosLargaDIstancia() + getVoz().getNumeroMinutosLocal();
     }
 
     public double darTotalCostoLlamadasDesdeLineasNoAlternativas(){
@@ -110,7 +128,7 @@ public class Empresa {
     }
 
     public double darTotalCostoLlamadasDesdeLineasAlternativas(){
-        return getCelular().getCostoLlamadas();
+        return getCelular().getCostoLlamadas()+ getVoz().getCostoLlamadas();
     }
 
     public double darCostoPromedioMinutoDesdeLineasNoAlternativas(){
@@ -130,6 +148,7 @@ public class Empresa {
 
     public void reiniciarLineasAlternativas(){
         celular.reiniciar();
+        voz.reiniciar();
     }
 
 }

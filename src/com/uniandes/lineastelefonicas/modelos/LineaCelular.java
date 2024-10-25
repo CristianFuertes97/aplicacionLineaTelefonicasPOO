@@ -57,9 +57,10 @@ public class LineaCelular extends LineaTelefonica {
     }
 
     public void reiniciar(){
-        numeroLlamadas = 0;
-        numeroMinutos = 0;
-        numeroMinutosCelular = 0;
-        numeroMinutosLocal = 0;
+        this.numeroLlamadas = 0;
+        this.numeroMinutos = 0;
+        this.numeroMinutosCelular = 0;
+        this.numeroMinutosLocal = 0;
+        setCostoLlamadas(0);
     }
 }

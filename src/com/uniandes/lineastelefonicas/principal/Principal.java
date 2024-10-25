@@ -10,19 +10,13 @@ public class Principal {
         Scanner sc = new Scanner(System.in);
         Empresa empresa = new Empresa();
 
-        empresa.agregarLlamadaLocalLinea1(15);
-        empresa.agregarLlamadaLocalLinea1(20);
-        empresa.agregarLlamadaLocalLinea1(2);
-        empresa.agregarLlamadaLocalLinea1(11);
-        empresa.agregarLlamadaLocalLinea1(8);
-        System.out.println(empresa.darTotalNumeroLlamadasDesdeLineasNoAlternativas());
-
         while (true) {
             System.out.println("********SISTEMA LINEAS TELEFONICAS**********");
             System.out.println("""
                     Escoge la linea por la que deseas realizar la llamada
-                    1. Lineas Alternativas
-                    2. Lineas No Alternativas
+                    1. Lineas No Alternativas
+                    2. Lineas Alternativas
+                    3. Reiniciar Sistema
                     0. Salir
                     """);
             int opcion = sc.nextInt();
@@ -125,35 +119,80 @@ public class Principal {
                             }
                     break;
                 case 2:
-                    System.out.println("LLamadas por Lineas alternativas");        
                     System.out.println("""
+                            Tipo de llamada de lineas alternativas:
+                            1. Linea Celular
+                            2. Linea VozIP
+                            """);
+                    int op = sc.nextInt();
+                    if (op == 1) {
+                        System.out.println("""
                             1.Local
                             2.Celular
                             """);
-                    int a = sc.nextInt();
-                    switch (a) {
-                        case 1:
-                            System.out.println("Cuantos minutos de su llamada");
-                            int amin = sc.nextInt();
-                            empresa.agregarLlamadaLocalLineaCelular1(amin);
-                            break;
-                        case 2:
-                            System.out.println("Cuantos minutos de su llamada");
-                            int b = sc.nextInt();
-                            empresa.agregarLlamadaCelularLineaCelular(b);
-                            break;
-                        default:
-                            break;
+                        int a = sc.nextInt();
+                        switch (a) {
+                            case 1:
+                                System.out.println("Cuantos minutos de su llamada");
+                                int amin = sc.nextInt();
+                                empresa.agregarLlamadaLocalLineaCelular1(amin);
+                                break;
+                            case 2:
+                                System.out.println("Cuantos minutos de su llamada");
+                                int b = sc.nextInt();
+                                empresa.agregarLlamadaCelularLineaCelular(b);
+                                break;
+                            default:
+                                break;
+                        }
+                    }else if(op == 2){
+                        System.out.println("""
+                            1.Local
+                            2.Larga Distancia
+                            3.Celular
+                            """);
+                        int a = sc.nextInt();
+                        switch (a) {
+                            case 1:
+                                System.out.println("Cuantos minutos de su llamada");
+                                int amin = sc.nextInt();
+                                empresa.agregarLlamadaLocalLineaVozIP(amin);
+                                break;
+                            case 2:
+                                System.out.println("Cuantos minutos de su llamada");
+                                int b = sc.nextInt();
+                                empresa.agregarLlamadaLargaDistanciaLineaVozIP(b);
+                                break;
+                            case 3:
+                                System.out.println("Cuantos minutos de su llamada");
+                                int d = sc.nextInt();
+                                empresa.agregarLlamadaCelularLineaIP(d);
+                            break;    
+                            default:
+                                break;
+                        }
                     }
                     break;
+                case 3:
+                    System.out.println("Reiniciando el sistema........");
+                    empresa.reiniciarLineasAlternativas();
+                    empresa.reiniciarLineasNoALternativas();    
                 default:
                     System.out.println("Saliendo del sistema...........");
                     break;
             }
             System.out.println("-----------------INFORMACION DE SUS LLAMADAS---------------------");
-            System.out.println("Total de llamadas Lineas No ALternativas: " + empresa.darTotalNumeroLlamadasDesdeLineasNoAlternativas());
-            System.out.println("Total de minutos Lineas No Alternativas: "+ empresa.darTotalNumeroMinutosDesdeLineasNoAlternativas());
-            System.out.println("Total Costo de llamadas Lineas No Alternativas: "+ empresa.darTotalCostoLlamadasDesdeLineasNoAlternativas());
+            System.out.println("LINEAS NO ALTERNATIVAS");
+            System.out.println("Total de llamadas: " + empresa.darTotalNumeroLlamadasDesdeLineasNoAlternativas());
+            System.out.println("Total de minutos: "+ empresa.darTotalNumeroMinutosDesdeLineasNoAlternativas());
+            System.out.println("Total Costo de llamadas: "+ empresa.darTotalCostoLlamadasDesdeLineasNoAlternativas());
+            System.out.println("Costo promedio por minuto: "+ empresa.darCostoPromedioMinutoDesdeLineasNoAlternativas());
+            System.out.println("*-*--*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+            System.out.println("LINEAS ALTERNATIVAS");
+            System.out.println("Total de llamadas: " + empresa.darTotalNumeroLlamadasDesdeLineasAlternativas());
+            System.out.println("Total de minutos: "+ empresa.darTotalNumeroMinutosDesdeLineasAlternativas());
+            System.out.println("Total Costo de llamadas: "+ empresa.darTotalCostoLlamadasDesdeLineasAlternativas());
+            System.out.println("Costo promedio por minuto: "+ empresa.darCostoPromedioMinutoDesdeLineasAlternativas());
         }
         sc.close();
         
